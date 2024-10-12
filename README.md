@@ -37,4 +37,7 @@ run this command in visual studio developer powershell
 ```
 dotnet run seeddata
 ```
+> [!IMPORTANT]  
+> Never push to main or development branch directly. Create a branch of development and create a pull request 
+
 ## API documentation
