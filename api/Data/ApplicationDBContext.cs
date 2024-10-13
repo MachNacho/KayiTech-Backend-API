@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
 {
-    public class ApplicationDBContext: DbContext //creates the db and sets the tables
+    public class ApplicationDBContext: IdentityDbContext<User>//creates the db and sets the tables
     {
         public ApplicationDBContext(DbContextOptions dbContextOptions):base(dbContextOptions)
         {
