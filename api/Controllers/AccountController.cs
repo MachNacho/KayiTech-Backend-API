@@ -43,7 +43,13 @@ namespace api.Controllers
                     var roleResult = await _UserManager.AddToRoleAsync(user,"User");
                     if(roleResult.Succeeded)
                     {
-                        return Ok(_itokenservice.createToken(user));//TODO: Create DTO for user register
+                        return Ok(                
+                            new NewUserDTO{
+                                Email = user.Email,
+                                UserName = user.UserName,
+                                Token =  _itokenservice.createToken(user)
+                            }
+                        );
                     }
                     else
                     {
@@ -68,8 +74,14 @@ namespace api.Controllers
             if(user == null) return Unauthorized("Invalid Username!");
             var result = await _signInManager.CheckPasswordSignInAsync(user,login.Password,false);
             if(!result.Succeeded)return Unauthorized("Username not found and/or password incorrect");
-            return Ok(_itokenservice.createToken(user));//TODO: Create DTO for return
+            return Ok(
+                new NewUserDTO{
+                    Email = user.Email,
+                    UserName = user.UserName,
+                    Token =  _itokenservice.createToken(user)
+                }
+            );
         }
         
     }
-}
+}   
