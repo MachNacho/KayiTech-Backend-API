@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.Account
 {
-    public class LoginDTO
+    public class LoginDTO //used to mask input data(allowing only neccasary data for login in) 
     {
         [Required]
         [EmailAddress]

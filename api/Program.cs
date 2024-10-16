@@ -42,9 +42,9 @@ builder.Services.AddSwaggerGen(option =>
             new string[]{}
         }
     });
-});
+}); // Adds authentication testing for API authoraiztion testing
 
-builder.Services.AddDbContext<ApplicationDBContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));});
+builder.Services.AddDbContext<ApplicationDBContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));}); // Adds the DB to the program.
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -52,7 +52,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 8;
 }).AddEntityFrameworkStores<ApplicationDBContext>();
-builder.Services.AddControllers();
+builder.Services.AddControllers(); // configurations of the Identity user password
 
 builder.Services.AddAuthentication(options => {
     options.DefaultAuthenticateScheme =
@@ -70,9 +70,9 @@ builder.Services.AddAuthentication(options => {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
     };
-});
+}); // Added JWT token authentication for APIs
 
-//Dependency injection
+//Dependency injection for token service
 builder.Services.AddScoped<iTokenService,TokenService>();
 
 var app = builder.Build();

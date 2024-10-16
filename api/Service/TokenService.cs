@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using api.Interfaces;
 using api.Models;
 using Microsoft.IdentityModel.Tokens;
@@ -13,12 +9,17 @@ namespace api.Service
 {
     public class TokenService : iTokenService
     {
+        /// <summary>
+        /// this class is used to create tokens for users who login/register.
+        /// Keys are emmbeeded with usernames and email of users.
+        /// The tokens are signed with HMAC SHA512, set to expire in 7 days
+        /// </summary>
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
 
         public TokenService(IConfiguration config){_config = config;_key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));   }
 
-        public string createToken(User user)
+        public string createToken(User user) // method that creates tokens for users
         {
             var Claims  = new List<Claim>(){
                 new Claim(JwtRegisteredClaimNames.Email,user.Email),

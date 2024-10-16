@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.Account
 {
-    public class RegisterDTO
+    public class RegisterDTO //used to mask input data(allowing only neccasary data for registering) 
     {
         [Required]
         public string? Username { get; set; }
@@ -16,8 +16,8 @@ namespace api.Dtos.Account
         [Required]
         public string? Password { get; set; }
         [Required]
-        public string UserFirstName { get; set; }
+        public string? UserFirstName { get; set; }
         [Required]
-        public string UserLastName { get; set;}
+        public string? UserLastName { get; set;}
     }
 }
