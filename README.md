@@ -42,3 +42,7 @@ dotnet run seeddata
 ```
 
 ## API documentation
+### User account
+```
+//login
+```
