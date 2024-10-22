@@ -14,10 +14,9 @@ namespace api.Data
         public ApplicationDBContext(DbContextOptions dbContextOptions):base(dbContextOptions)
         {
         }
-<<<<<<< Updated upstream
-=======
+
         public DbSet<Quiz> quiz {get; set;}
->>>>>>> Stashed changes
+
         // creating roles within the DB
         protected override void OnModelCreating(ModelBuilder builder){
             base.OnModelCreating(builder);
