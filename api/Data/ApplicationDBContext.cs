@@ -14,7 +14,6 @@ namespace api.Data
         public ApplicationDBContext(DbContextOptions dbContextOptions):base(dbContextOptions)
         {
         }
-
         // creating roles within the DB
         protected override void OnModelCreating(ModelBuilder builder){
             base.OnModelCreating(builder);

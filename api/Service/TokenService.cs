@@ -17,11 +17,15 @@ namespace api.Service
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
 
-        public TokenService(IConfiguration config){_config = config;_key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));   }
+        public TokenService(IConfiguration config)
+        {
+            _config = config;
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));   
+        }
 
         public string createToken(User user) // method that creates tokens for users
         {
-            var Claims  = new List<Claim>(){
+            var Claims  = new List<Claim>{
                 new Claim(JwtRegisteredClaimNames.Email,user.Email),
                 new Claim(JwtRegisteredClaimNames.GivenName,user.UserName),
             };

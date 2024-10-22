@@ -36,9 +36,9 @@ namespace api.Controllers
                     UserLastName = Register.UserLastName,
                     Email = Register.Email
                 };
-                var userEmail = await _UserManager.FindByEmailAsync(user.Email);
-                if(userEmail != null){return StatusCode(500);}
+
                 var createUser = await _UserManager.CreateAsync(user,Register.Password);
+
                 if(createUser.Succeeded){
                     var roleResult = await _UserManager.AddToRoleAsync(user,"User");
                     if(roleResult.Succeeded)
@@ -63,7 +63,7 @@ namespace api.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                 return StatusCode(500, ex);
             }
         }
         [HttpPost("login")]
@@ -73,7 +73,7 @@ namespace api.Controllers
             var user = await _UserManager.Users.FirstOrDefaultAsync(x => x.Email == login.Email);
             if(user == null) return Unauthorized("Invalid Username!");
             var result = await _signInManager.CheckPasswordSignInAsync(user,login.Password,false);
-            if(!result.Succeeded)return Unauthorized("Username not found and/or password incorrect");
+            if(!result.Succeeded)return Unauthorized("User not found and/or password incorrect");
             return Ok(
                 new NewUserDTO{
                     Email = user.Email,
