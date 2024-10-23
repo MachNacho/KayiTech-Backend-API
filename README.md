@@ -8,7 +8,7 @@ This readme will server as a guide between developers and documentation of API.
 
 
 > [!CAUTION]
-> Any unchecked commits to the mina branch will risk failing the server
+> Any unchecked commits to the main branch will risk failing the server
 
 
 ### Overview
