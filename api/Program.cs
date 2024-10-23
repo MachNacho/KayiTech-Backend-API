@@ -10,7 +10,8 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
-
+//var sqlConnections = builder.Configuration["ConnectionStrings:Kayitech:SqlDB"];
+//builder.Services.AddSqlServer<ApplicationDBContext>(sqlConnections, options => options.EnableRetryOnFailure());
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
@@ -75,7 +76,7 @@ builder.Services.AddAuthentication(options => {
 }); // Added JWT token authentication for APIs
 
 //Dependency injection for token service
-builder.Services.AddScoped<iTokenService,TokenService>();
+builder.Services.AddTransient<iTokenService,TokenService>();
 
 var app = builder.Build();
 

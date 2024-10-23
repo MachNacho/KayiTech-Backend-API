@@ -16,6 +16,7 @@ namespace api.Data
         }
 
         public DbSet<Quiz> quiz {get; set;}
+        public DbSet<Quiz> quizHistory {get; set;}
 
         // creating roles within the DB
         protected override void OnModelCreating(ModelBuilder builder){
