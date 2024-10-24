@@ -1,10 +1,9 @@
 using api.Data;
 using api.DTO.Quiz;
+using api.Interfaces;
 using api.Mapper;
 using api.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.controllers
 {
@@ -12,51 +11,49 @@ namespace api.controllers
     [ApiController]
     public class QuizController: ControllerBase
     {
+        private readonly iQuizRepository _iQuizRepository;
         private readonly ApplicationDBContext _context;
-        public QuizController(ApplicationDBContext context){
+        public QuizController(ApplicationDBContext context,iQuizRepository iQuizRepository){
             _context = context;
+            _iQuizRepository = iQuizRepository;
         }
 
-        [HttpGet]
+        [HttpGet] //read all
         public async Task<IActionResult> GetAll()
         { 
-            return Ok(await _context.quiz.ToListAsync());
+            var q =await _iQuizRepository.GetALLAsync();
+            return Ok(q.Select(q => q.toQuizDTO()).ToList());
         }
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]// read one record
         public async Task<IActionResult> GetById([FromRoute]int id)
         { 
-            return Ok(_context.quiz.Include(x => x.Questions).FirstOrDefaultAsync(s=>s.Id == id));
+            return Ok(await _iQuizRepository.GetById(id));
         }
 
-        [HttpPost]
-        public IActionResult CreateQuiz([FromBody]CreateQuizRequestDTO quizDTO){
-            var quizModel = quizDTO.ToQuizFromCreateDTO();
-            _context.quiz.Add(quizModel);
-            _context.SaveChanges();
-             return CreatedAtAction(nameof(GetById), new{id = quizModel.Id},quizModel.toQuizDTO());
+        [HttpPost]//Create quiz
+        public async Task<IActionResult> CreateQuiz([FromBody]CreateQuizRequestDTO quizDTO){
+            Quiz a = await _iQuizRepository.CreateQuizAsync(quizDTO);
+            return CreatedAtAction(nameof(GetById), new{id = a.Id},a.toQuizDTO());
         }
         
-        [HttpPut]
+        [HttpPut]//Update quiz
         [Route("{id}")]
-        public IActionResult UpdateQuiz([FromRoute]int id, [FromBody]CreateQuizRequestDTO quizDTO)
+        public async Task<IActionResult> UpdateQuiz([FromRoute]int id, [FromBody]CreateQuizRequestDTO quizDTO)
         {
-            var quizModel = _context.quiz.FirstOrDefault(x =>x.Id==id);
+           var quizModel = _context.quiz.FirstOrDefault(x =>x.Id==id);
             if (quizModel == null){return NotFound();}
-            quizModel.quizTitle = quizDTO.quizName;
-            quizModel.SubjectCategory = quizDTO.QuizsubjectCatagory;
-            _context.SaveChanges();
-            return Ok(quizModel.toQuizDTO());
+            Quiz q = await _iQuizRepository.UpdateQuizAsync(quizModel,quizDTO);
+            return Ok(q.toQuizDTO());
         }
 
 
-        [HttpDelete]
+        [HttpDelete]//Delete quiz
         [Route("{id}")]
         public IActionResult DeleteQuiz([FromRoute]int id)
         {
             var quizModel = _context.quiz.FirstOrDefault(x => x.Id==id);
             if (quizModel == null){return NotFound();}
-            _context.quiz.Remove(quizModel);
-            _context.SaveChanges();
+            _iQuizRepository.DeleteQuizAsync(quizModel);
             return NoContent();
         }
 

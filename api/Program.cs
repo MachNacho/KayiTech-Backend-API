@@ -1,6 +1,7 @@
 using api.Data;
 using api.Interfaces;
 using api.Models;
+using api.Repository;
 using api.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -76,7 +77,8 @@ builder.Services.AddAuthentication(options => {
 }); // Added JWT token authentication for APIs
 
 //Dependency injection for token service
-builder.Services.AddTransient<iTokenService,TokenService>();
+builder.Services.AddScoped<iTokenService,TokenService>();
+builder.Services.AddScoped<iQuizRepository,QuizRepository>();
 
 var app = builder.Build();
 

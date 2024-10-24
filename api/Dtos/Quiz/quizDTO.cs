@@ -4,8 +4,10 @@ namespace api.DTO
 {
     public class quizDTO
     {
-        public string quizName { get; set; }
-        public string QuizsubjectCatagory{ get; set; }
-        public List<QuizQuestions> quizQuestions {get;set;}
+        public string quizTitle { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+        public int TimeLimitSeconds { get; set; }
+        public string SubjectCategory { get; set; }
+        public List<QuizQuestions> Questions {get; set;} = new List<QuizQuestions>();//"Foreign key"
     }
 }

@@ -9,16 +9,20 @@ namespace api.Mapper
         public static quizDTO toQuizDTO(this Quiz quizModel)
         {
             return new quizDTO{
-                quizName = quizModel.quizTitle,
-                QuizsubjectCatagory = quizModel.SubjectCategory,
-                quizQuestions = quizModel.Questions.ToList(),
+                quizTitle = quizModel.quizTitle,
+                CreatedOn = quizModel.CreatedOn,
+                TimeLimitSeconds = quizModel.TimeLimitSeconds,
+                SubjectCategory = quizModel.SubjectCategory,
+                Questions = quizModel.Questions.ToList(),
+
             };
         }
         public static Quiz ToQuizFromCreateDTO(this CreateQuizRequestDTO createQuizRequestDTO)
         {
             return new Quiz{
-                quizTitle = createQuizRequestDTO.quizName,
-                SubjectCategory = createQuizRequestDTO.QuizsubjectCatagory
+                quizTitle = createQuizRequestDTO.quizTitle,
+                SubjectCategory = createQuizRequestDTO.SubjectCategory,
+                TimeLimitSeconds = createQuizRequestDTO.TimeLimitSeconds
             };
         }
     }
