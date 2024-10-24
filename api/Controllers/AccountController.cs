@@ -15,10 +15,10 @@ namespace api.Controllers
     [ApiController]
     public class AccountController:ControllerBase
     {
-        private readonly UserManager<User> _UserManager;
+        private readonly UserManager<QuizUser> _UserManager;
         private readonly iTokenService _itokenservice;
-        private readonly SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, iTokenService iTokenService,SignInManager<User> signInManager){
+        private readonly SignInManager<QuizUser> _signInManager;
+        public AccountController(UserManager<QuizUser> userManager, iTokenService iTokenService,SignInManager<QuizUser> signInManager){
             _UserManager = userManager;
             _itokenservice = iTokenService;
             _signInManager = signInManager;
@@ -29,7 +29,7 @@ namespace api.Controllers
             try
             {
                 if(!ModelState.IsValid)return BadRequest(ModelState);
-                var user = new User
+                var user = new QuizUser
                 {
                     UserName = Register.Username,
                     UserFirstName = Register.UserFirstName,

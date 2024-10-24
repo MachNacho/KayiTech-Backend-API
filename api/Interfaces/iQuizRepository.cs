@@ -6,9 +6,10 @@ using api.Models;
 
 namespace api.Interfaces
 {
-    public interface iTokenService // interface linking the service to the controller
+    public interface iQuizRepository
     {
-        string createToken( QuizUser user);
+       Task<List<Quiz>> GetALLAsync();
+        Task<List<Quiz>> GetById(int id);
         
     }
 }

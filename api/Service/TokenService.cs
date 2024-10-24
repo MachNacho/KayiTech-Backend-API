@@ -23,7 +23,7 @@ namespace api.Service
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));   
         }
 
-        public string createToken(User user) // method that creates tokens for users
+        public string createToken(QuizUser user) // method that creates tokens for users
         {
             var Claims  = new List<Claim>{
                 new Claim(JwtRegisteredClaimNames.Email,user.Email),

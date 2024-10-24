@@ -47,7 +47,7 @@ builder.Services.AddSwaggerGen(option =>
 }); // Adds authentication testing for API authoraiztion testing
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));}); // Adds the DB to the program.
-builder.Services.AddIdentity<User, IdentityRole>(options =>
+builder.Services.AddIdentity<QuizUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;

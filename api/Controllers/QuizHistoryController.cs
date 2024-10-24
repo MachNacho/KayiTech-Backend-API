@@ -1,6 +1,7 @@
 using api.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using api.Models;
 
 namespace api.Controllers
 {
@@ -16,18 +17,16 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _context.quizHistory.ToListAsync());
+            return Ok(await _context.QuizHistory.ToListAsync());
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute]int id){
+            //var userID = ;
             return Ok();
         }
         [HttpPost]
         public IActionResult CreateHistory(){
             return Ok();
         }
-        [HttpDelete]
-        [Route("{id}")]
-        public IActionResult DeleteHistory([FromRoute]int id){return Ok();}
     }
 }
