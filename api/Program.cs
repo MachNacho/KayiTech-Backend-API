@@ -79,11 +79,11 @@ builder.Services.AddAuthentication(options => {
 //Dependency injection for token service
 builder.Services.AddScoped<iTokenService,TokenService>();
 builder.Services.AddScoped<iQuizRepository,QuizRepository>();
-builder.Services.AddControllers().AddNewtonsoftJson(options => {options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;});
+builder.Services.AddControllers().AddNewtonsoftJson(options => {options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;});//fixes circulating
 var app = builder.Build();
     app.UseSwagger();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
