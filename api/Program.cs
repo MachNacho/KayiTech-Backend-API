@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 //var sqlConnections = builder.Configuration["ConnectionStrings:Kayitech:SqlDB"];
@@ -78,7 +79,7 @@ builder.Services.AddAuthentication(options => {
 //Dependency injection for token service
 builder.Services.AddScoped<iTokenService,TokenService>();
 builder.Services.AddScoped<iQuizRepository,QuizRepository>();
-
+builder.Services.AddControllers().AddNewtonsoftJson(options => {options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

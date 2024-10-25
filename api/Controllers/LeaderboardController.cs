@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace api.Controllers
 {
     [ApiController]
-    [Route("api/leaderboard")]
-    //TODO set up controller
+    [Route("/leaderboard")]
+    //TODO do repo
     public class LeaderboardController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
@@ -16,7 +16,7 @@ namespace api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute]int id)
         { 
-            return Ok(await _context.QuizHistory.OrderBy(x => x.Score).Where(x => x.quizID == id).ToListAsync());
+            return Ok(await _context.QuizHistory.OrderByDescending(x => x.Score).Where(x => x.quizID == id).ToListAsync());
         }
     }
 }
