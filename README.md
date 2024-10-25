@@ -3,7 +3,7 @@
 This readme will server as a guide between developers and documentation of API.
 ## Guide of development
 > [!IMPORTANT]  
-> Never push to main or development branch directly. Create a branch of source development and create a pull request 
+> API is live, click on website link 
 
 
 
@@ -11,6 +11,7 @@ This readme will server as a guide between developers and documentation of API.
 > Any unchecked commits to the main branch will risk failing the server
 
 
+Live
 ### Overview
 ![Untitled Diagram drawio](https://github.com/user-attachments/assets/4c9a1f95-ae40-4589-9618-4b464609c4ec)
 ### Setup develpment DB
