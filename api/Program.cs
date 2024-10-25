@@ -1,6 +1,7 @@
 using api.Data;
 using api.Interfaces;
 using api.Models;
+using api.Repository;
 using api.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,8 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
-
+//var sqlConnections = builder.Configuration["ConnectionStrings:Kayitech:SqlDB"];
+//builder.Services.AddSqlServer<ApplicationDBContext>(sqlConnections, options => options.EnableRetryOnFailure());
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
@@ -46,7 +48,7 @@ builder.Services.AddSwaggerGen(option =>
 }); // Adds authentication testing for API authoraiztion testing
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));}); // Adds the DB to the program.
-builder.Services.AddIdentity<User, IdentityRole>(options =>
+builder.Services.AddIdentity<QuizUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
@@ -76,7 +78,8 @@ builder.Services.AddAuthentication(options => {
 
 //Dependency injection for token service
 builder.Services.AddScoped<iTokenService,TokenService>();
-
+builder.Services.AddScoped<iQuizRepository,QuizRepository>();
+builder.Services.AddControllers().AddNewtonsoftJson(options => {options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

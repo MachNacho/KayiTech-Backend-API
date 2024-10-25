@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -9,13 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
 {
-    public class ApplicationDBContext: IdentityDbContext<User>//creates the db and sets the tables
+    public class ApplicationDBContext: IdentityDbContext<QuizUser>//creates the db and sets the tables
     {
         public ApplicationDBContext(DbContextOptions dbContextOptions):base(dbContextOptions)
         {
         }
 
         public DbSet<Quiz> quiz {get; set;}
+        public DbSet<QuizHistory> QuizHistory {get; set;}
+        public DbSet<QuizQuestions> quizQuestions{get; set;}
 
         // creating roles within the DB
         protected override void OnModelCreating(ModelBuilder builder){
