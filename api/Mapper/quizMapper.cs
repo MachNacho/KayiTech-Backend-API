@@ -9,6 +9,7 @@ namespace api.Mapper
         public static quizDTO toQuizDTO(this Quiz quizModel)
         {
             return new quizDTO{
+                Id = quizModel.Id,
                 quizTitle = quizModel.quizTitle,
                 CreatedOn = quizModel.CreatedOn,
                 TimeLimitSeconds = quizModel.TimeLimitSeconds,

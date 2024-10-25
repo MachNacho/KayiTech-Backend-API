@@ -1,9 +1,7 @@
-namespace api.Models
+namespace api.Dtos.Question
 {
-    public class QuizQuestions
+    public class CreateQuestionDTO
     {
-        public int Id { get; set;}
-        public Quiz quiz {get; set;}
         public int quizID { get; set; }
         public string QuestionTitle { get; set;}
         public string QuestionAnswer { get; set;}

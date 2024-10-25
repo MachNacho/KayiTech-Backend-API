@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Data;
-using api.DTO;
 using api.DTO.Quiz;
 using api.Interfaces;
 using api.Mapper;

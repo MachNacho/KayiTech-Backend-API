@@ -1,7 +1,7 @@
 using api.Data;
+using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using api.Models;
 
 namespace api.Controllers
 {
@@ -9,23 +9,18 @@ namespace api.Controllers
     [ApiController]
     public class QuizHistoryController : Controller
     {
-        
+        //TODO: CREATE CONTROLLER
         private readonly ApplicationDBContext _context;
         public QuizHistoryController(ApplicationDBContext context){
             _context = context;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await _context.QuizHistory.ToListAsync());
-        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute]int id){
             //var userID = ;
-            return Ok();
+            return Ok(await _context.QuizHistory.Where(x => x.quizID == id).ToListAsync());
         }
         [HttpPost]
-        public IActionResult CreateHistory(){
+        public IActionResult CreateHistory([FromBody]QuizHistory quizHistory){
             return Ok();
         }
     }
