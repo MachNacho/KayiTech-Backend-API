@@ -47,7 +47,11 @@ builder.Services.AddSwaggerGen(option =>
     });
 }); // Adds authentication testing for API authoraiztion testing
 
-builder.Services.AddDbContext<ApplicationDBContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));}); // Adds the DB to the program.
+var sqlConnections = builder.Configuration["ConnectionStrings:Kayitech:SqlDB"];
+builder.Services.AddSqlServer<ApplicationDBContext>(sqlConnections, options => options.EnableRetryOnFailure());
+
+//builder.Services.AddDbContext<ApplicationDBContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));}); // Adds the DB to the program.
+
 builder.Services.AddIdentity<QuizUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -83,11 +87,10 @@ builder.Services.AddControllers().AddNewtonsoftJson(options => {options.Serializ
 var app = builder.Build();
     app.UseSwagger();
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
