@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Dtos.Account;
 using api.Interfaces;
 using api.Models;
@@ -11,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
-    [Route("api/account")]
+    [Route("/account")]
     [ApiController]
     public class AccountController:ControllerBase
     {
-        private readonly UserManager<User> _UserManager;
+        private readonly UserManager<QuizUser> _UserManager;
         private readonly iTokenService _itokenservice;
-        private readonly SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, iTokenService iTokenService,SignInManager<User> signInManager){
+        private readonly SignInManager<QuizUser> _signInManager;
+        public AccountController(UserManager<QuizUser> userManager, iTokenService iTokenService,SignInManager<QuizUser> signInManager){
             _UserManager = userManager;
             _itokenservice = iTokenService;
             _signInManager = signInManager;
@@ -29,7 +25,7 @@ namespace api.Controllers
             try
             {
                 if(!ModelState.IsValid)return BadRequest(ModelState);
-                var user = new User
+                var user = new QuizUser
                 {
                     UserName = Register.Username,
                     UserFirstName = Register.UserFirstName,

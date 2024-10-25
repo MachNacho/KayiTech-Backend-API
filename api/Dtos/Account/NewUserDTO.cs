@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace api.Dtos.Account
 {
     public class NewUserDTO//output dto for the model User, only returning neccassary information
