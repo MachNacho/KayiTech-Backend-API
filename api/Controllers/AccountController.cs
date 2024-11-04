@@ -11,8 +11,8 @@ namespace api.Controllers
     [ApiController]
     public class AccountController:ControllerBase
     {
-        private readonly UserManager<QuizUser> _UserManager;
-        private readonly iTokenService _itokenservice;
+        private readonly UserManager<QuizUser> _UserManager; //User identity manager
+        private readonly iTokenService _itokenservice; //JWT token service
         private readonly SignInManager<QuizUser> _signInManager;
         public AccountController(UserManager<QuizUser> userManager, iTokenService iTokenService,SignInManager<QuizUser> signInManager){
             _UserManager = userManager;
@@ -24,7 +24,7 @@ namespace api.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterDTO Register){
             try
             {
-                if(!ModelState.IsValid)return BadRequest(ModelState);
+                if(!ModelState.IsValid)return BadRequest(ModelState);//checks if inputted data is valid to the model
                 var user = new QuizUser
                 {
                     UserName = Register.Username,
@@ -33,10 +33,10 @@ namespace api.Controllers
                     Email = Register.Email
                 };
 
-                var createUser = await _UserManager.CreateAsync(user,Register.Password);
+                var createUser = await _UserManager.CreateAsync(user,Register.Password); // Checks DB if user can be created
 
                 if(createUser.Succeeded){
-                    var roleResult = await _UserManager.AddToRoleAsync(user,"User");
+                    var roleResult = await _UserManager.AddToRoleAsync(user,"User"); //adds user role for customer
                     if(roleResult.Succeeded)
                     {
                         return Ok(                
@@ -65,10 +65,10 @@ namespace api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO login)
         {
-            if(!ModelState.IsValid)return BadRequest(ModelState);
-            var user = await _UserManager.Users.FirstOrDefaultAsync(x => x.Email == login.Email);
+            if(!ModelState.IsValid)return BadRequest(ModelState);//checks if inputted data is valid to the model
+            var user = await _UserManager.Users.FirstOrDefaultAsync(x => x.Email == login.Email); //Checks if user email exists
             if(user == null) return Unauthorized("Invalid Username!");
-            var result = await _signInManager.CheckPasswordSignInAsync(user,login.Password,false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user,login.Password,false); //Verifies password
             if(!result.Succeeded)return Unauthorized("User not found and/or password incorrect");
             return Ok(
                 new NewUserDTO{
