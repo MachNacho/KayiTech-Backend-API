@@ -9,6 +9,5 @@ namespace api.DTO
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public int TimeLimitSeconds { get; set; }
         public string SubjectCategory { get; set; }
-        public List<QuizQuestions> Questions {get; set;} = new List<QuizQuestions>();//"Foreign key"
     }
 }

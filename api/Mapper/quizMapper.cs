@@ -13,9 +13,7 @@ namespace api.Mapper
                 quizTitle = quizModel.quizTitle,
                 CreatedOn = quizModel.CreatedOn,
                 TimeLimitSeconds = quizModel.TimeLimitSeconds,
-                SubjectCategory = quizModel.SubjectCategory,
-                Questions = quizModel.Questions.ToList(),
-
+                SubjectCategory = quizModel.SubjectCategory
             };
         }
         public static Quiz ToQuizFromCreateDTO(this CreateQuizRequestDTO createQuizRequestDTO)
