@@ -27,7 +27,7 @@ namespace api.Controllers
         public async Task<IActionResult> GetById([FromRoute]int id){
             var username = User.GetUsername();
             var quizuser = await _userManager.FindByNameAsync(username);
-            return Ok(await _context.QuizHistory.Where(x => (x.userID == quizuser.Id)&&(x.quizID == id)).ToListAsync());
+            return Ok(await _context.QuizHistory.Where(x => (x.userID == quizuser.Id)&&(x.quizID == id)).Select(s=>s.toHistoryDTO()).ToListAsync());
         }
         [HttpPost]
         [Authorize]

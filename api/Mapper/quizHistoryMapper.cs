@@ -14,5 +14,13 @@ namespace api.Mapper
                 TimeTakenSeconds = quizModel.TimeTakenSeconds
             };
         }
+        public static historyDTO toHistoryDTO(this QuizHistory h)
+        {
+            return new historyDTO{
+                DateSubmitted = h.DateSubmitted,
+                Score = h.Score,
+                TimeTakenSeconds = h.TimeTakenSeconds
+            };
+        }
     }
 }
