@@ -47,10 +47,10 @@ builder.Services.AddSwaggerGen(option =>
     });
 }); // Adds authentication testing for API authoraiztion testing
 
-//var sqlConnections = builder.Configuration["ConnectionStrings:Kayitech:SqlDB"];
-//builder.Services.AddSqlServer<ApplicationDBContext>(sqlConnections, options => options.EnableRetryOnFailure());
+var sqlConnections = builder.Configuration["ConnectionStrings:Kayitech:SqlDB"];
+builder.Services.AddSqlServer<ApplicationDBContext>(sqlConnections, options => options.EnableRetryOnFailure());
 
-builder.Services.AddDbContext<ApplicationDBContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));}); // Adds the DB to the program.
+//builder.Services.AddDbContext<ApplicationDBContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));}); // Adds the DB to the program.
 
 builder.Services.AddIdentity<QuizUser, IdentityRole>(options =>
 {
