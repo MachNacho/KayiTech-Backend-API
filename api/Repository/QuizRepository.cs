@@ -1,5 +1,6 @@
 using api.Data;
 using api.DTO.Quiz;
+using api.Dtos.Question;
 using api.Interfaces;
 using api.Mapper;
 using api.Models;
@@ -31,10 +32,10 @@ namespace api.Repository
         {
             return await _context.quiz.ToListAsync();
         }
-        public async Task<List<QuizQuestions>> GetById(int id)
+        public async Task<List<QuestionDTO>> GetById(int id)
         {
             //throw new NotImplementedException();
-            return await _context.quizQuestions.Where(s => s.quizID == id).ToListAsync();
+            return await _context.quizQuestions.Where(s => s.quizID == id).Select(s=>s.toQuestionDTO()).ToListAsync();
         }
 
         public async Task<Quiz> UpdateQuizAsync(Quiz quizModel, CreateQuizRequestDTO quizDTO)
