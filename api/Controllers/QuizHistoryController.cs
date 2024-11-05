@@ -32,7 +32,9 @@ namespace api.Controllers
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateHistory([FromBody]NewHistoryDTO quizHistory){
-            var Qhistory = quizHistory.ToHistoryFromDTO();
+            var username = User.GetUsername();
+            var quizuser = await _userManager.FindByNameAsync(username);
+            var Qhistory = quizHistory.ToHistoryFromDTO(quizuser);
             await _context.QuizHistory.AddAsync(Qhistory);
             await _context.SaveChangesAsync();
             return Ok();
