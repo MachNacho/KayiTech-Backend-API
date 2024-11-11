@@ -23,18 +23,13 @@ namespace api.Controllers
             _userManager = userManager;
         }
         [HttpGet("Quiz/{id}")]
-        [Authorize]
         public async Task<IActionResult> GetById([FromRoute]int id){
-            var username = User.GetUsername();
-            var quizuser = await _userManager.FindByNameAsync(username);
-            return Ok(await _context.QuizHistory.Where(x => (x.userID == quizuser.Id)&&(x.quizID == id)).Select(s=>s.toHistoryDTO()).ToListAsync());
+
+            return Ok(await _context.QuizHistory.Where(x => (x.userID == "1")&&(x.quizID == id)).Select(s=>s.toHistoryDTO()).ToListAsync());
         }
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> CreateHistory([FromBody]NewHistoryDTO quizHistory){
-            var username = User.GetUsername();
-            var quizuser = await _userManager.FindByNameAsync(username);
-            var Qhistory = quizHistory.ToHistoryFromDTO(quizuser);
+            var Qhistory = quizHistory.ToHistoryFromDTO();
             await _context.QuizHistory.AddAsync(Qhistory);
             await _context.SaveChangesAsync();
             return Ok();

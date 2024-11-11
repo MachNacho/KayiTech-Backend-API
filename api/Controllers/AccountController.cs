@@ -32,7 +32,8 @@ namespace api.Controllers
                     UserLastName = Register.UserLastName,
                     Email = Register.Email
                 };
-
+                var userEmail = await _UserManager.Users.FirstOrDefaultAsync(x => x.Email == user.Email); //Checks if user email exists
+                if(userEmail != null) return Unauthorized("Invalid email");
                 var createUser = await _UserManager.CreateAsync(user,Register.Password); // Checks DB if user can be created
 
                 if(createUser.Succeeded){
@@ -43,7 +44,8 @@ namespace api.Controllers
                             new NewUserDTO{
                                 Email = user.Email,
                                 UserName = user.UserName,
-                                Token =  _itokenservice.createToken(user)
+                                Token =  _itokenservice.createToken(user),
+                                userID = user.Id
                             }
                         );
                     }
@@ -74,7 +76,8 @@ namespace api.Controllers
                 new NewUserDTO{
                     Email = user.Email,
                     UserName = user.UserName,
-                    Token =  _itokenservice.createToken(user)
+                    Token =  _itokenservice.createToken(user),
+                    userID = user.Id
                 }
             );
         }

@@ -5,12 +5,12 @@ namespace api.Mapper
 {
     public static class quizHistoryMapper
     {
-        public static QuizHistory ToHistoryFromDTO(this NewHistoryDTO quizModel,QuizUser s)
+        public static QuizHistory ToHistoryFromDTO(this NewHistoryDTO quizModel)
         {
             return new QuizHistory{
                 quizID = quizModel.quizID,
+                userID = quizModel.userID,
                 Score = quizModel.Score,
-                userID = s.Id,
                 TimeTakenSeconds = quizModel.TimeTakenSeconds
             };
         }
