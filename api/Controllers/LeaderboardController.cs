@@ -14,7 +14,7 @@ namespace api.Controllers
         public LeaderboardController(ApplicationDBContext context){
             _context = context;
         }
-        [HttpGet("{id}")]
+        [HttpGet("Quiz{id}")]
         public async Task<IActionResult> GetById([FromRoute]int id)
         { 
             var a = await _context.QuizHistory.Include(x=>x.user).OrderByDescending(x => x.Score).Where(x => x.quizID == id).ToListAsync();
