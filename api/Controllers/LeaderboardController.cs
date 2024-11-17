@@ -17,7 +17,12 @@ namespace api.Controllers
         [HttpGet("Quiz{id}")]
         public async Task<IActionResult> GetById([FromRoute]int id)
         { 
-            var a = await _context.QuizHistory.Include(x=>x.user).OrderByDescending(x => x.Score).OrderByDescending(x=>x.TimeTakenSeconds).Where(x => x.quizID == id).ToListAsync();
+            var a = await _context.QuizHistory.Include(x => x.user)
+            .Where(x => x.quizID == id)
+            .OrderByDescending(x => x.Score) // Primary order: highest score first
+            .ThenBy(x => x.TimeTakenSeconds) // Secondary order: shortest time first
+            .ToListAsync();
+
             return Ok(a.Select(a=>a.ToLeaderboardDTO()));
         }
     }
