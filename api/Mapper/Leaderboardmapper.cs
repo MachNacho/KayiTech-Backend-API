@@ -8,7 +8,7 @@ namespace api.Mapper
         public static LeaderboardDTO ToLeaderboardDTO(this QuizHistory historymodel)
         {
             return new LeaderboardDTO{
-                Username = historymodel.user.UserFirstName,
+                Username = historymodel.user.UserName,
                 Score = historymodel.Score,
                 TimeTakenSeconds = historymodel.TimeTakenSeconds
             };
