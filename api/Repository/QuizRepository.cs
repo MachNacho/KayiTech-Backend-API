@@ -30,7 +30,8 @@ namespace api.Repository
 
         public async Task<List<Quiz>> GetALLAsync()
         {
-            return await _context.quiz.ToListAsync();
+            return await _context.quiz.Where(q => _context.quizQuestions.Any(o => o.quizID == q.Id)).ToListAsync();
+
         }
         public async Task<List<QuestionDTO>> GetById(int id)
         {
